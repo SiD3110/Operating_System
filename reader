@@ -1,0 +1,95 @@
+package javaapplication4;
+import java.util.concurrent.Semaphore;
+
+
+
+public class ReaderWriter
+{
+   static int rc=0;
+   static Semaphore s=new Semaphore(1);
+         static   Semaphore wrt=new Semaphore(1);
+   static class Reader implements Runnable
+    {
+       
+            public void run(){
+                   try  {
+                    s.acquire();
+               
+                
+                
+                                rc++;
+                                
+                                if(rc==1)
+                                    wrt.acquire();
+                                            s.release();
+                                              System.out.println(Thread.currentThread().getName()+"is reading");
+                                             Thread.sleep(1000);
+                                             System.out.println("reading finish");
+                                             s.acquire();
+                                             rc--;
+                                            if(rc==0)
+                                            wrt.release();
+                                            s.release();
+                                                    
+                                
+                                       
+                    }
+       catch (InterruptedException e)
+       {
+           System.out.println("......");
+       }
+            }}
+            static class Writer implements Runnable
+    {
+       
+            public void run(){
+                   try  {
+                    s.acquire();
+               
+                
+                
+                                rc++;
+                                
+                                if(rc==1)
+                                    wrt.acquire();
+                                            s.release();
+                                              System.out.println(Thread.currentThread().getName()+"is reading");
+                                             Thread.sleep(1000);
+                                             System.out.println("reading finish");
+                                             s.acquire();
+                                             rc--;
+                                            if(rc==0)
+                                            wrt.release();
+                                            s.release();
+                                                    
+                                
+                                       
+                    }
+       catch (InterruptedException e)
+       {
+           System.out.println("\\\\\\");
+       }
+            }}
+   
+   
+    public static void main(String[] args) throws Exception
+{
+       Reader r1=new Reader();
+       Thread t1=new Thread(r1);
+Thread t2=new Thread(r1);
+Thread t3=new Thread(r1);
+       t1.setName("READER1");
+t2.setName("READER 2");
+t3.setName("READER 3");
+      
+t1.start();
+t2.start();
+t3.start();
+
+               
+               
+            
+        }
+    
+    }
+    
