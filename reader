@@ -53,9 +53,9 @@ public class ReaderWriter
                                 if(rc==1)
                                     wrt.acquire();
                                             s.release();
-                                              System.out.println(Thread.currentThread().getName()+"is reading");
+                                              System.out.println(Thread.currentThread().getName()+"is writing");
                                              Thread.sleep(1000);
-                                             System.out.println("reading finish");
+                                             System.out.println("writing finish");
                                              s.acquire();
                                              rc--;
                                             if(rc==0)
